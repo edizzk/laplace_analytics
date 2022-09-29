@@ -25,16 +25,16 @@ Widget dateCard(int type, DataProvider dataProvider) {
   String typeString = getString();
 
   return Expanded(
-    child: Card(
-      elevation: 10,
-      shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.black54, width: 0.5),
-          borderRadius: BorderRadius.circular(10)
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: InkWell(
-          onTap: () => dataProvider.setSelectedDate(0),
+    child: InkWell(
+      onTap: () => dataProvider.setSelectedDate(type),
+      child: Card(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.black54, width: 0.5),
+            borderRadius: BorderRadius.circular(10)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
           child: Text(typeString, textAlign: TextAlign.center),
         ),
       ),
