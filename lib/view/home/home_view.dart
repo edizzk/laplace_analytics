@@ -62,16 +62,12 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _dateCards(List<List<Date>> dateModel) {
+  Widget _dateCards(DataProvider dataProvider) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        dateCard("1G"),
-        dateCard("1H"),
-        dateCard("1A"),
-        dateCard("3A"),
-        dateCard("1Y"),
-        dateCard("5Y"),
+        for (int i=0; i<=5; i++)
+          dateCard(i, dataProvider)
       ],
     );
   }
