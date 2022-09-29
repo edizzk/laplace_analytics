@@ -4,25 +4,26 @@ import 'package:http/http.dart' as http;
 
 import '../model/data_model.dart';
 import '../utils/constants.dart';
+import 'api_status.dart';
 
 class DataRepository {
-  static Future<DataModel> getData() async {
+  static Future<Object> getData() async {
     try {
       var url = Uri.parse(datasUrl);
       var response = await http.get(url, headers: headers);
-      if (response.statusCode == 200) {
+      if (response.statusCode == SUCCESS) {
         //log("TEST: ${response.body}");
-        return dataFromJson(response.body);
+        return Success(response: dataFromJson(response.body));
       }
-      return DataModel(the1G: [], the1H: [], the1A: [], the3A: [], the1Y: [], the5Y: []);
+      return Failure(code: INVALID_RESPONSE, errorResponse: 'Invalid Response');
     } on HttpException{
-      return DataModel(the1G: [], the1H: [], the1A: [], the3A: [], the1Y: [], the5Y: []);
+      return Failure(code: NO_INTERNET, errorResponse: 'No Internet Connection');
     } on SocketException{
-      return DataModel(the1G: [], the1H: [], the1A: [], the3A: [], the1Y: [], the5Y: []);
+      return Failure(code: NO_INTERNET, errorResponse: 'No Internet Connection');
     } on FormatException {
-      return DataModel(the1G: [], the1H: [], the1A: [], the3A: [], the1Y: [], the5Y: []);
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Invalid Format');
     } catch (e) {
-      return DataModel(the1G: [], the1H: [], the1A: [], the3A: [], the1Y: [], the5Y: []);
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknown Error');
     }
   }
 }
