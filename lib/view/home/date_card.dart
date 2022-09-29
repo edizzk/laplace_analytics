@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/data_model.dart';
-
-Widget dateCard(String type, List<Date> date) {
+Widget dateCard(String type) {
   return Expanded(
     child: Card(
       elevation: 10,
