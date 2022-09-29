@@ -1,12 +1,11 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:laplace_analytics/model/data_model.dart';
 import 'package:laplace_analytics/view/home/date_card.dart';
 import 'package:laplace_analytics/view_model/data_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/app_loading.dart';
 import '../../widget/failure_box.dart';
+import 'line_chart.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key, required this.title}) : super(key: key);
@@ -38,27 +37,10 @@ class HomeView extends StatelessWidget {
             borderRadius: BorderRadius.circular(10)),
         child: Stack(
           children: [
-            _lineChart(dataProvider),
+            lineChart(dataProvider),
             _dateCards(dataProvider),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _lineChart(DataProvider dataProvider) {
-    List<List<Date>> dateModel = dataProvider.dateModel;
-    return Container(
-      height: 300,
-      padding: const EdgeInsets.only(bottom: 40),
-      child: LineChart(
-        LineChartData(
-          lineBarsData: [
-            LineChartBarData(
-              spots: _spotList(dateModel[dataProvider.selectedDate])
-            )
-          ]
-        )
       ),
     );
   }
@@ -76,10 +58,6 @@ class HomeView extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  List<FlSpot> _spotList(List<Date> date) {
-    return date.map<FlSpot>((item) => FlSpot(item.d.toDouble(), item.c)).toList();
   }
 
 }
