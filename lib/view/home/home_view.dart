@@ -30,46 +30,51 @@ class HomeView extends StatelessWidget {
       return FailureBox(text: dataProvider.dataError?.message);
     }
     return Padding(
-      padding: const EdgeInsets.only(right: 50, left: 50, bottom: 20, top: 20),
-      child: Column(
-        children: [
-          Card(
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.black54, width: 0.5),
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              children: [
-                _lineChart(dataProvider),
-                _dateCards(dataProvider),
-              ],
-            ),
-          ),
-        ],
+      padding: const EdgeInsets.only(right: 5, left: 5, bottom: 20, top: 20),
+      child: Card(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.black54, width: 0.5),
+            borderRadius: BorderRadius.circular(10)),
+        child: Stack(
+          children: [
+            _lineChart(dataProvider),
+            _dateCards(dataProvider),
+          ],
+        ),
       ),
     );
   }
 
   Widget _lineChart(DataProvider dataProvider) {
     List<List<Date>> dateModel = dataProvider.dateModel;
-    return LineChart(
-      LineChartData(
-        lineBarsData: [
-          LineChartBarData(
-            spots: _spotList(dateModel[dataProvider.selectedDate])
-          )
-        ]
-      )
+    return Container(
+      height: 300,
+      padding: const EdgeInsets.only(bottom: 40),
+      child: LineChart(
+        LineChartData(
+          lineBarsData: [
+            LineChartBarData(
+              spots: _spotList(dateModel[dataProvider.selectedDate])
+            )
+          ]
+        )
+      ),
     );
   }
 
   Widget _dateCards(DataProvider dataProvider) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int i=0; i<=5; i++)
-          dateCard(i, dataProvider)
-      ],
+    return Positioned(
+      bottom: 0,
+      right: 0,
+      left: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          for (int i=0; i<=5; i++)
+            dateCard(i, dataProvider)
+        ],
+      ),
     );
   }
 
