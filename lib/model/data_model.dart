@@ -40,6 +40,6 @@ class Date {
 
   factory Date.fromJson(Map<String, dynamic> json) => Date(
     d: json["d"],
-    c: json["c"].toDouble(),
+    c: double.parse(json["c"].toString()),
   );
 }
