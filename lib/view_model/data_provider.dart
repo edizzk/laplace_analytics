@@ -9,10 +9,12 @@ class DataProvider extends ChangeNotifier {
   List<List<Date>> _dateModel = [];
   bool _isLoading = false;
   DataError? _dataError;
+  int _selectedDate = 0;
 
   List<List<Date>> get dateModel => _dateModel;
   bool get isLoading => _isLoading;
   DataError? get dataError => _dataError;
+  int get selectedDate => _selectedDate;
 
   DataProvider() {
     getData();
@@ -34,6 +36,11 @@ class DataProvider extends ChangeNotifier {
 
   setLoading(bool loading) async {
     _isLoading = loading;
+    notifyListeners();
+  }
+
+  setSelectedDate(int selected) {
+    _selectedDate = selected;
     notifyListeners();
   }
 
