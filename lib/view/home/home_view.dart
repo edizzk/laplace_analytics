@@ -40,8 +40,8 @@ class HomeView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10)),
             child: Column(
               children: [
-                _lineChart(dateModel),
-                _dateCards(dateModel),
+                _lineChart(dataProvider),
+                _dateCards(dataProvider),
               ],
             ),
           ),
