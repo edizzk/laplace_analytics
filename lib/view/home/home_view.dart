@@ -5,6 +5,8 @@ import 'package:laplace_analytics/view/home/date_card.dart';
 import 'package:laplace_analytics/view_model/data_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../widget/app_loading.dart';
+
 class HomeView extends StatelessWidget {
   const HomeView({Key? key, required this.title}) : super(key: key);
 
@@ -20,7 +22,9 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _ui(DataProvider dataProvider) {
-    List<List<Date>> dateModel = dataProvider.dateModel;
+    if (dataProvider.isLoading) {
+      return const AppLoading();
+    }
     return Padding(
       padding: const EdgeInsets.only(right: 50, left: 50, bottom: 20, top: 20),
       child: Column(
