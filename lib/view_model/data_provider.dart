@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:laplace_analytics/model/data_error_model.dart';
 import 'package:laplace_analytics/model/data_model.dart';
+import 'package:laplace_analytics/repo/api_status.dart';
 
 import '../repo/data_repo.dart';
 
 class DataProvider extends ChangeNotifier {
   DataModel _dataModel = DataModel(the1G: [], the1H: [], the1A: [], the3A: [], the1Y: [], the5Y: []);
   bool _isLoading = false;
+  DataError? _dataError;
 
   DataModel get dataModel => _dataModel;
   bool get isLoading => _isLoading;
+  DataError? get dataError => _dataError;
 
   DataProvider() {
     getData();
@@ -16,6 +20,10 @@ class DataProvider extends ChangeNotifier {
 
   setDataModel(DataModel dataModel) {
     _dataModel = dataModel;
+  }
+
+  setDataError(DataError dataError) {
+    _dataError = dataError;
   }
 
   setLoading(bool loading) async {
@@ -26,7 +34,16 @@ class DataProvider extends ChangeNotifier {
   getData() async {
     setLoading(true);
     var response = await DataRepository.getData();
-    setDataModel(response);
+    if (response is Success) {
+      setDataModel(response.response as DataModel);
+    }
+    if (response is Failure) {
+      DataError dataError = DataError(
+        code: response.code,
+        message: response.errorResponse.toString()
+      );
+      setDataError(dataError);
+    }
     setLoading(false);
   }
 }
