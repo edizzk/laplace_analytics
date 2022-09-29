@@ -28,6 +28,7 @@ Widget dateCard(int type, DataProvider dataProvider) {
     child: InkWell(
       onTap: () => dataProvider.setSelectedDate(type),
       child: Card(
+        color: type == dataProvider.selectedDate ? Colors.blue : Colors.white54,
         elevation: 10,
         shape: RoundedRectangleBorder(
             side: const BorderSide(color: Colors.black54, width: 0.5),
