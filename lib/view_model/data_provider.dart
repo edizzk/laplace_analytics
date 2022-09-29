@@ -10,6 +10,10 @@ class DataProvider extends ChangeNotifier {
   DataModel get dataModel => _dataModel;
   bool get isLoading => _isLoading;
 
+  DataProvider() {
+    getData();
+  }
+
   setDataModel(DataModel dataModel) {
     _dataModel = dataModel;
   }
