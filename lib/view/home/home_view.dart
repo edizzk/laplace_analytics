@@ -6,6 +6,7 @@ import 'package:laplace_analytics/view_model/data_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/app_loading.dart';
+import '../../widget/failure_box.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key, required this.title}) : super(key: key);
@@ -24,6 +25,9 @@ class HomeView extends StatelessWidget {
   Widget _ui(DataProvider dataProvider) {
     if (dataProvider.isLoading) {
       return const AppLoading();
+    }
+    if (dataProvider.dataError?.code != null) {
+      return FailureBox(text: dataProvider.dataError?.message);
     }
     return Padding(
       padding: const EdgeInsets.only(right: 50, left: 50, bottom: 20, top: 20),
