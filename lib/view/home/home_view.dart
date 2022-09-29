@@ -50,12 +50,13 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _lineChart(List<List<Date>> dateModel) {
+  Widget _lineChart(DataProvider dataProvider) {
+    List<List<Date>> dateModel = dataProvider.dateModel;
     return LineChart(
       LineChartData(
         lineBarsData: [
           LineChartBarData(
-            //spots: _spotList(dateModel[selectedDate])
+            spots: _spotList(dateModel[dataProvider.selectedDate])
           )
         ]
       )
@@ -70,6 +71,10 @@ class HomeView extends StatelessWidget {
           dateCard(i, dataProvider)
       ],
     );
+  }
+
+  List<FlSpot> _spotList(List<Date> date) {
+    return date.map<FlSpot>((item) => FlSpot(item.d.toDouble(), item.c)).toList();
   }
 
 }
