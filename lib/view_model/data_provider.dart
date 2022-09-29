@@ -6,11 +6,11 @@ import 'package:laplace_analytics/repo/api_status.dart';
 import '../repo/data_repo.dart';
 
 class DataProvider extends ChangeNotifier {
-  DataModel _dataModel = DataModel(the1G: [], the1H: [], the1A: [], the3A: [], the1Y: [], the5Y: []);
+  List<List<Date>> _dateModel = [];
   bool _isLoading = false;
   DataError? _dataError;
 
-  DataModel get dataModel => _dataModel;
+  List<List<Date>> get dateModel => _dateModel;
   bool get isLoading => _isLoading;
   DataError? get dataError => _dataError;
 
@@ -19,7 +19,13 @@ class DataProvider extends ChangeNotifier {
   }
 
   setDataModel(DataModel dataModel) {
-    _dataModel = dataModel;
+    _dateModel = [];
+    _dateModel.add(dataModel.the1G);
+    _dateModel.add(dataModel.the1H);
+    _dateModel.add(dataModel.the1A);
+    _dateModel.add(dataModel.the3A);
+    _dateModel.add(dataModel.the1Y);
+    _dateModel.add(dataModel.the5Y);
   }
 
   setDataError(DataError dataError) {
